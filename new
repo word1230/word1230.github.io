@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# 新建一篇文章
+#   ./new "文章标题"
+#   ./new "Hello World" hello-world
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+POSTS="$ROOT/content/posts"
+
+if [[ $# -lt 1 || -z "${1:-}" ]]; then
+  cat >&2 <<'EOF'
+用法: ./new "文章标题" [slug]
+
+  ./new "我的第一篇博客"
+  ./new "Hello World" hello-world
+
+slug 可选，不填会根据标题自动生成（纯中文标题会保留中文作文件名）。
+EOF
+  exit 1
+fi
+
+title="$1"
+slug="${2:-}"
+
+if [[ -z "$slug" ]]; then
+  if command -v node >/dev/null 2>&1; then
+    slug="$(node -e '
+      const raw = process.argv[1].normalize("NFKC").trim().replace(/\s+/g, " ");
+      let s;
+      if (/\p{Script=Han}/u.test(raw)) {
+        s = raw;
+      } else {
+        s = raw.toLowerCase().replace(/[^a-z0-9\s-]/g, " ").trim().replace(/\s+/g, "-");
+      }
+      s = s.replace(/[\\/:*?"<>|]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+      process.stdout.write(s);
+    ' "$title")"
+  else
+    slug="$(printf '%s' "$title" | tr -s '[:space:]' '-')"
+  fi
+fi
+
+mkdir -p "$POSTS"
+stamp="$(date +%Y-%m-%d)"
+file="$POSTS/${stamp}-${slug}.md"
+[[ -e "$file" ]] && file="$POSTS/${stamp}-${slug}-$(date +%H%M%S).md"
+
+escaped_title="${title//\"/\\\"}"
+
+cat > "$file" <<EOF
+---
+title: "${escaped_title}"
+date: $(date +%Y-%m-%dT%H:%M:%S%:z)
+draft: false
+tags: []
+categories: []
+summary: ""
+---
+
+在这里开始写正文。
+
+EOF
+
+echo "已创建: ${file#"$ROOT"/}"
+echo
+echo "  预览:   hugo server -D"
+echo "  发布:   ./publish"
+
+if [[ -n "${EDITOR:-}" ]] && [[ -t 1 ]] && command -v "$EDITOR" >/dev/null 2>&1; then
+  exec "$EDITOR" "$file"
+fi

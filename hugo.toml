@@ -1,0 +1,154 @@
+# ============================================================
+#  站点基础信息 —— 建议先改这几行
+# ============================================================
+baseURL = "https://word1230.github.io/"
+title = "Cheems 的博客"
+locale = "zh-CN"
+defaultContentLanguage = "zh"
+theme = "PaperMod"
+
+# ============================================================
+#  构建行为
+# ============================================================
+enableRobotsTXT = true
+enableEmoji = true
+hasCJKLanguage = true          # 中文按字数统计阅读时间和摘要
+summaryLength = 70
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[pagination]
+  pagerSize = 8
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+# 搜索功能依赖首页输出 JSON
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+
+# 代码高亮：PaperMod 自带 Chroma 样式，必须设成 false
+[markup]
+  [markup.highlight]
+    noClasses = false
+    guessSyntax = true
+    lineNos = false
+    codeFences = true
+  [markup.goldmark.renderer]
+    unsafe = true              # 允许文章里直接写 HTML
+
+# ============================================================
+#  主题参数
+# ============================================================
+[params]
+  env = "production"
+  description = "记录技术、生活与一些没想明白的事。"
+  keywords = ["博客", "技术", "笔记", "Markdown"]
+  author = "Cheems"
+  DateFormat = "2006-01-02"
+  defaultTheme = "auto"        # auto / light / dark
+  mainSections = ["posts"]
+
+  ShowReadingTime = true
+  ShowWordCount = false
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowRssButtonInSectionTermList = true
+  ShowFullTextinRSS = true
+  ShowAllPagesInArchive = true
+  UseHugoToc = true
+  disableSpecial1stPost = true
+  disableScrollToTop = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true               # 文章右侧目录
+  tocopen = false
+  comments = false
+
+  [params.assets]
+    disableHLJS = true
+    disableFingerprinting = false
+    favicon = "favicon.svg"
+    favicon16x16 = "favicon.svg"
+    favicon32x32 = "favicon.svg"
+    apple_touch_icon = "favicon.svg"
+    theme_color = "#2e2e33"
+
+  # 首页顶部的大字介绍，随便改
+  [params.homeInfoParams]
+    Title = "你好，我是 Cheems 👋"
+    Content = """
+这里放我想写的东西：技术笔记、踩坑记录，以及一些还没想明白的问题。
+
+写作流程很简单——在本地用任意 Markdown 编辑器写，`./publish` 推上去，网站自动更新。
+"""
+    AlignSocialIconsTo = "center"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/word1230"
+  [[params.socialIcons]]
+    name = "rss"
+    url = "index.xml"
+
+  # 文章底部「在 GitHub 上编辑」链接
+  [params.editPost]
+    URL = "https://github.com/word1230/blog-site/edit/main/content/"
+    Text = "在 GitHub 上编辑"
+    appendFilePath = true
+
+  [params.footer]
+    hideCopyright = false
+
+  # 搜索（Fuse.js）参数
+  [params.fuseOpts]
+    isCaseSensitive = false
+    ignoreDiacritics = true
+    findAllMatches = false
+    minMatchCharLength = 1
+    shouldSort = false
+    location = 0
+    threshold = 0.3
+    distance = 100
+    ignoreLocation = true
+    useExtendedSearch = false
+    includeScore = false
+    keys = ["title", "permalink", "summary", "content"]
+
+# ============================================================
+#  导航菜单
+# ============================================================
+[[menu.main]]
+  identifier = "posts"
+  name = "文章"
+  url = "/posts/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "archives"
+  name = "归档"
+  url = "/archives/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "tags"
+  name = "标签"
+  url = "/tags/"
+  weight = 30
+
+[[menu.main]]
+  identifier = "search"
+  name = "搜索"
+  url = "/search/"
+  weight = 40
+
+[[menu.main]]
+  identifier = "about"
+  name = "关于"
+  url = "/about/"
+  weight = 50

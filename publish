@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# 提交并发布
+#   ./publish
+#   ./publish "feat: 新增一篇文章"
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$ROOT"
+
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "错误：$ROOT 还不是 git 仓库。" >&2
+  exit 1
+fi
+
+drafts="$(grep -rlE '^draft: true' content/posts --include='*.md' 2>/dev/null || true)"
+if [[ -n "$drafts" ]]; then
+  echo "提示：以下文章仍是草稿（draft: true），不会出现在线上："
+  while IFS= read -r f; do echo "  $f"; done <<< "$drafts"
+  echo
+fi
+
+git add -A
+if git diff --cached --quiet; then
+  echo "没有需要发布的改动。"
+  exit 0
+fi
+
+msg="${1:-post: $(date '+%Y-%m-%d %H:%M')}"
+git commit -m "$msg"
+
+if git remote get-url origin >/dev/null 2>&1; then
+  git push
+  echo "已推送，等 GitHub Actions 跑完（约 1 分钟）刷新线上即可。"
+else
+  echo "已提交到本地，但还没有配置远程仓库，所以没有推送。"
+fi
