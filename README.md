@@ -71,13 +71,14 @@ summary: "列表页显示的摘要"
 
 ## 部署
 
-首次部署需要一次性配置：
+已经配置好了：仓库 `word1230/word1230.github.io`，Pages 源设为 **GitHub Actions**，
+`.github/workflows/deploy.yml` 在每次 push 到 `main` 时自动构建并部署。
 
-1. 在 GitHub 创建仓库并推送（详见仓库根目录操作记录）。
-2. 仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。
-3. 推送任意提交，`.github/workflows/deploy.yml` 会自动构建部署。
+线上地址：<https://word1230.github.io/>
 
-之后每次 `./publish` 就是完整流程。
+本地改完 → `./publish` → 等 Actions 跑完（约 30 秒）→ 刷新网页。
+
+工作流跑失败了可以在 `gh run list` 里看，或者直接打开仓库的 Actions 页面。
 
 ## 更新主题
 
