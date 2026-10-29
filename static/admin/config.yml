@@ -4,6 +4,8 @@ backend:
   name: github
   repo: word1230/word1230.github.io
   branch: main
+  # 仓库是公开的，只申请 public_repo 权限，不碰私有仓库
+  auth_scope: public_repo
   # OAuth 中转（Cloudflare Worker，见 docs/cms-setup.md）
   base_url: https://sveltia-cms-auth.word232386.workers.dev
   commit_messages:
