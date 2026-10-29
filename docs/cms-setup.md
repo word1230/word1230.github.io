@@ -105,6 +105,9 @@ npx wrangler deploy
 
 ## 说明
 
+- **界面定制**：编辑器的外观在 `static/admin/admin.css` 里，通过覆盖 Sveltia 的
+  `--sui-*` 设计令牌换色（暖琥珀强调色）并调整编辑区排版，明暗两套主题都有。
+  改完在本地 `hugo server` 下打开 `/admin/` 确认效果。
 - **`_index.md` 不会出现在列表里**，Sveltia 默认就跳过 Hugo 的索引文件。
 - **图片**存在仓库 `static/images/`，CMS 里上传后自动插入 `/images/xxx.jpg` 的引用。
 - **草稿**：把 `draft` 打勾保存，线上就不会出现（本地 `hugo server -D` 能看到）。
