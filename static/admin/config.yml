@@ -4,9 +4,8 @@ backend:
   name: github
   repo: word1230/word1230.github.io
   branch: main
-  # ↓↓↓ 唯一需要你手动改的一行：换成你自己部署的 Worker 地址
-  #     部署步骤见 docs/cms-setup.md
-  base_url: https://YOUR-WORKER.workers.dev
+  # OAuth 中转（Cloudflare Worker，见 docs/cms-setup.md）
+  base_url: https://sveltia-cms-auth.word232386.workers.dev
   commit_messages:
     create: "post: 新建「{{slug}}」"
     update: "post: 更新「{{slug}}」"
