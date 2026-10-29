@@ -13,9 +13,10 @@ theme = "PaperMod"
 enableRobotsTXT = true
 enableEmoji = true
 hasCJKLanguage = true          # 中文按字数统计阅读时间和摘要
+timeZone = "Asia/Shanghai"     # 前后台日期都按东八区解释，避免写成「未来文章」
 summaryLength = 70
 buildDrafts = false
-buildFuture = false
+buildFuture = true             # 万一时间有偏差也不至于整篇不发布
 buildExpired = false
 
 [pagination]
