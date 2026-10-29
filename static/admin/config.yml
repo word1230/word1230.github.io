@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: word1230/word1230.github.io
+  branch: main
+  # ↓↓↓ 唯一需要你手动改的一行：换成你自己部署的 Worker 地址
+  #     部署步骤见 docs/cms-setup.md
+  base_url: https://YOUR-WORKER.workers.dev
+  commit_messages:
+    create: "post: 新建「{{slug}}」"
+    update: "post: 更新「{{slug}}」"
+    delete: "post: 删除「{{slug}}」"
+    uploadMedia: "media: 上传 {{path}}"
+    deleteMedia: "media: 删除 {{path}}"
+
+site_url: https://word1230.github.io/
+display_url: https://word1230.github.io/
+logo_url: https://word1230.github.io/favicon.svg
+app_title: 写点什么
+
+# 图片存在仓库的 static/images/，网页里引用 /images/xxx.jpg
+media_folder: static/images
+public_folder: /images
+
+collections:
+  # ---------------- 文章 ----------------
+  - name: posts
+    label: 文章
+    label_singular: 文章
+    folder: content/posts
+    create: true
+    delete: true
+    # 文件名：2026-10-29-文章标题.md
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} · {{date}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 发布日期, name: date, widget: datetime, default: "{{now}}" }
+      - { label: 草稿, name: draft, widget: boolean, default: false, required: false }
+      - { label: 标签, name: tags, widget: list, required: false, default: [] }
+      - { label: 分类, name: categories, widget: list, required: false, default: [] }
+      - { label: 摘要, name: summary, widget: text, required: false }
+      - { label: 正文, name: body, widget: markdown }
+
+  # ---------------- 单页 ----------------
+  - name: pages
+    label: 单页
+    files:
+      - name: about
+        label: 关于
+        file: content/about.md
+        fields:
+          - { label: 标题, name: title, widget: string }
+          - { label: 摘要, name: summary, widget: text, required: false }
+          - { label: 正文, name: body, widget: markdown }

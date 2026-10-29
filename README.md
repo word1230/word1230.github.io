@@ -12,6 +12,20 @@
 
 设置过 `$EDITOR` 的话，创建完会自动用编辑器打开。
 
+## 网页端写作
+
+配置好之后打开 <https://word1230.github.io/admin/>，在浏览器里（含手机）直接写，
+保存即提交到仓库并自动部署。
+
+**首次使用需要一次性配置**（约 10 分钟）：
+完整步骤见 [docs/cms-setup.md](docs/cms-setup.md)。
+
+简单说就是：部署一个 Cloudflare Worker 做 GitHub 登录中转 → 建一个 GitHub OAuth App
+→ 把 Worker 地址填进 `static/admin/config.yml` 的 `base_url`。
+
+> 还没配置时，本地 `hugo server -D` 打开 <http://localhost:1313/admin/> 也能用——
+> 点「使用本地仓库」直接读写你这台机器上的文件，不需要任何授权。
+
 ## 本地预览
 
 ```bash
@@ -37,7 +51,10 @@ content/
 ├── about.md        关于页
 ├── archives.md     归档页
 └── search.md       搜索页
-static/             图片等静态资源，引用路径 /xxx.jpg
+static/
+├── images/         图片，引用路径 /images/xxx.jpg
+└── admin/          网页端编辑器（Sveltia CMS）
+docs/cms-setup.md   网页端写作的配置步骤
 themes/PaperMod/    主题（已内置，不需要额外安装）
 hugo.toml           站点配置
 new / publish       两个脚本
