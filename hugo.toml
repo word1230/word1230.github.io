@@ -68,7 +68,7 @@ buildExpired = false
   hidemeta = false
   hideSummary = false
   showtoc = true               # 文章右侧目录
-  tocopen = false
+  tocopen = true                # 侧栏目录默认展开
   comments = false
 
   [params.assets]
