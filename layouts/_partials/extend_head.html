@@ -1,0 +1,18 @@
+{{- /* Head custom content area start */ -}}
+{{- /*     Insert any custom code (web-analytics, resources, etc.) - it will appear in the <head></head> section of every page. */ -}}
+{{- /*     Can be overwritten by partial with the same name in the global layouts. */ -}}
+{{- /* Head custom content area end */ -}}
+
+{{- /* 桌面端目录固定在右侧，默认展开；窄屏恢复 PaperMod 原有的折叠行为 */ -}}
+<script>
+    (function () {
+        var mq = window.matchMedia('(min-width: 1200px)');
+        function syncToc() {
+            document.querySelectorAll('.post-single > details.toc').forEach(function (d) {
+                d.open = mq.matches;
+            });
+        }
+        syncToc();
+        mq.addEventListener('change', syncToc);
+    })();
+</script>

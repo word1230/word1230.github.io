@@ -1,0 +1,6 @@
+/* 文章标题区与正文之间的分隔线 */
+
+.post-single > .post-content {
+    border-top: 1px solid var(--border);
+    padding-top: var(--content-gap);
+}
