@@ -1,0 +1,350 @@
+/*
+ * 新粗野主义（Neubrutalism）整体风格
+ * 要素：奶白底 + 纯黑粗描边 + 硬偏移阴影（无模糊）+ 0 圆角 + 高饱和撞色块 +
+ *      即时过渡 + 加粗字重。亮色用黑描边，暗色换成近白描边保持同样的力量感。
+ * 只覆盖设计令牌和少量组件，不动主题模板；去掉这个文件即可整体回退。
+ */
+
+/* ============================================================
+ * 1. 令牌
+ * ============================================================ */
+
+:root {
+    /* 撞色盘 */
+    --nb-yellow: #ffd02f;
+    --nb-blue: #1d4ed8;
+    --nb-pink: #ff7aa2;
+    --nb-green: #21c493;
+    --nb-ink: #111111; /* 描边与硬阴影颜色 */
+
+    --theme: #fffdf5;            /* 页面底色：奶白 */
+    --entry: #ffffff;            /* 卡片 */
+    --primary: #111111;
+    --secondary: #4f4f4f;
+    --tertiary: #d8d3c4;
+    --content: #222222;
+    --code-bg: #fff3c2;          /* 行内代码：淡黄 */
+    --code-block-bg: #111111;
+    --border: #111111;
+    --radius: 0px;
+}
+
+:root[data-theme="dark"] {
+    --nb-blue: #9db4ff;
+    --nb-ink: #ededed;
+
+    --theme: #161616;
+    --entry: #1f1f1f;
+    --primary: #f2f2f2;
+    --secondary: #b9b9b9;
+    --tertiary: #3a3a3a;
+    --content: #dddddd;
+    --code-bg: #34301f;
+    --code-block-bg: #000000;
+    --border: #ededed;
+}
+
+::selection {
+    background: var(--nb-yellow);
+    color: #111111;
+}
+
+/* ============================================================
+ * 2. 页头 / 页脚
+ * ============================================================ */
+
+.header {
+    background: var(--theme);
+    border-bottom: 2px solid var(--nb-ink);
+}
+
+.logo a {
+    font-weight: 800;
+}
+
+.logo #logo-link,
+.logo > a:first-child {
+    background: var(--nb-yellow);
+    color: #111111;
+    border: 2px solid var(--nb-ink);
+    box-shadow: 3px 3px 0 var(--nb-ink);
+    padding: 2px 10px;
+}
+
+.logo #logo-link:hover,
+.logo > a:first-child:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--nb-ink);
+}
+
+.menu a {
+    font-weight: 700;
+}
+
+.footer {
+    border-top: 2px solid var(--nb-ink);
+}
+
+/* 返回顶部按钮：圆的改方的 */
+.top-link {
+    border-radius: 0;
+    border: 2px solid var(--nb-ink);
+    background: var(--nb-yellow);
+    color: #111111;
+    box-shadow: 3px 3px 0 var(--nb-ink);
+}
+
+/* ============================================================
+ * 3. 列表卡片 / 首页 hero
+ * ============================================================ */
+
+.post-entry {
+    border: 2px solid var(--nb-ink);
+    box-shadow: 6px 6px 0 var(--nb-ink);
+    transition: none;
+}
+
+.post-entry:hover,
+.post-entry:focus-within {
+    transform: translate(-2px, -2px);
+    border-color: var(--nb-ink);
+    box-shadow: 8px 8px 0 var(--nb-ink);
+}
+
+.entry-header h2 {
+    font-weight: 800;
+}
+
+.first-entry.home-info {
+    border: 2px solid var(--nb-ink);
+    box-shadow: 6px 6px 0 var(--nb-ink);
+    background: var(--entry);
+    padding: var(--gap);
+}
+
+/* ============================================================
+ * 4. 文章页
+ * ============================================================ */
+
+.post-title {
+    font-weight: 800;
+}
+
+/* 正文链接换成蓝，粗下划线 */
+.post-content a:not(.anchor) {
+    color: var(--nb-blue);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25rem;
+}
+
+/* 标签胶囊 */
+.post-tags a {
+    border: 2px solid var(--nb-ink);
+    background: var(--nb-yellow);
+    color: #111111;
+    font-weight: 700;
+    box-shadow: 3px 3px 0 var(--nb-ink);
+}
+
+.post-tags a:hover {
+    background: var(--nb-pink);
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--nb-ink);
+    color: #111111;
+}
+
+/* 上一篇 / 下一篇 */
+.paginav {
+    border: 2px solid var(--nb-ink);
+    box-shadow: 6px 6px 0 var(--nb-ink);
+    background: var(--entry);
+}
+
+.paginav a:hover {
+    background: var(--nb-yellow);
+    color: #111111;
+}
+
+/* 代码块：整体变成一块「黑板」卡片 */
+.post-content pre,
+.md-content pre {
+    border: 2px solid var(--nb-ink);
+    box-shadow: 6px 6px 0 var(--nb-ink);
+    border-radius: 0;
+}
+
+.post-content code {
+    border: 1px solid var(--nb-ink);
+    border-radius: 0;
+}
+
+.md-content blockquote {
+    border-inline-start: 4px solid var(--nb-ink);
+    background: var(--code-bg);
+    padding: 0.5rem 1rem;
+}
+
+.md-content hr {
+    background: var(--nb-ink);
+}
+
+.post-content table th,
+.post-content table td {
+    border: 1px solid var(--nb-ink);
+}
+
+/* ============================================================
+ * 5. 标签云 / 归档等列表页
+ * ============================================================ */
+
+.page-header h1 {
+    font-weight: 800;
+}
+
+.terms-tags a {
+    border: 2px solid var(--nb-ink);
+    background: var(--entry);
+    box-shadow: 3px 3px 0 var(--nb-ink);
+    transition: none;
+}
+
+.terms-tags li:nth-child(3n + 1) a {
+    background: var(--nb-yellow);
+}
+
+.terms-tags li:nth-child(3n + 2) a {
+    background: var(--nb-pink);
+}
+
+.terms-tags li:nth-child(3n) a {
+    background: #b7e3ff;
+}
+
+.terms-tags a:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--nb-ink);
+    background: var(--nb-green);
+}
+
+.terms-tags a,
+.post-tags a,
+.logo #logo-link,
+.paginav,
+.top-link,
+.terms-tags a:hover,
+.post-tags a:hover {
+    color: #111111;
+}
+
+:root[data-theme="dark"] .terms-tags a,
+:root[data-theme="dark"] .terms-tags a:hover,
+:root[data-theme="dark"] .post-tags a,
+:root[data-theme="dark"] .post-tags a:hover,
+:root[data-theme="dark"] .logo #logo-link,
+:root[data-theme="dark"] .logo > a:first-child,
+:root[data-theme="dark"] .top-link {
+    color: #111111;
+    border-color: #111111;
+    box-shadow: 3px 3px 0 #111111;
+}
+
+/* ============================================================
+ * 6. 导航菜单按钮
+ * ============================================================ */
+
+.menu {
+    align-items: center;
+}
+
+.menu > li > a {
+    display: block;
+    padding: 3px 12px;
+    border: 2px solid var(--nb-ink);
+    background: var(--entry);
+    color: var(--primary);
+    font-weight: 700;
+    line-height: 1.4;
+    box-shadow: 3px 3px 0 var(--nb-ink);
+}
+
+.menu > li > a:hover {
+    background: var(--nb-yellow);
+    color: #111111;
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--nb-ink);
+}
+
+/* 当前页：黄色实心。active 在链接内的 span 上（下划线也画在那里），
+ * 用 :has 从外层 a 上色；不支持 :has 的浏览器只是没有高亮，不影响使用 */
+.menu > li > a:has(> .active) {
+    background: var(--nb-yellow);
+    color: #111111;
+}
+
+.menu .active {
+    text-decoration: none;
+}
+
+:root[data-theme="dark"] .menu > li > a:hover,
+:root[data-theme="dark"] .menu > li.active > a {
+    color: #111111;
+}
+
+/* ============================================================
+ * 7. 归档页
+ * ============================================================ */
+
+.archive-year {
+    font-weight: 800;
+}
+
+.archive-entry {
+    border: 2px solid var(--nb-ink);
+    background: var(--entry);
+    box-shadow: 4px 4px 0 var(--nb-ink);
+    padding: 8px 16px;
+    transition: none;
+}
+
+.archive-entry:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--nb-ink);
+    background: var(--nb-yellow);
+}
+
+.archive-entry:hover .archive-entry-title,
+.archive-entry:hover .archive-meta {
+    color: #111111;
+}
+
+/* ============================================================
+ * 8. 搜索页
+ * ============================================================ */
+
+.searchbox input {
+    border: 2px solid var(--nb-ink);
+    border-radius: 0;
+    background: var(--entry);
+    box-shadow: 4px 4px 0 var(--nb-ink);
+    padding: 10px 14px;
+}
+
+.searchbox input:focus {
+    outline: none;
+    background: var(--nb-yellow);
+    color: #111111;
+}
+
+.searchResults li {
+    border: 2px solid var(--nb-ink);
+    border-radius: 0;
+    box-shadow: 4px 4px 0 var(--nb-ink);
+    transition: none;
+}
+
+.searchResults li:hover,
+.searchResults li:focus-within {
+    transform: translate(-2px, -2px);
+    border-color: var(--nb-ink);
+    box-shadow: 6px 6px 0 var(--nb-ink);
+}
