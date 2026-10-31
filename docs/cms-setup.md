@@ -105,6 +105,9 @@ npx wrangler deploy
 
 ## 说明
 
+- **界面定制**：编辑器外观在 `static/admin/admin.css`，与新粗野主义博客主题
+  （`assets/css/extended/neubrutalism.css`）同一套视觉语言：黑描边、硬阴影、
+  0 圆角、明黄强调色。Sveltia 的类名不是稳定 API，升级版本后需核对样式是否仍生效。
 - **`_index.md` 不会出现在列表里**，Sveltia 默认就跳过 Hugo 的索引文件。
 - **图片**存在仓库 `static/images/`，CMS 里上传后自动插入 `/images/xxx.jpg` 的引用。
 - **草稿**：把 `draft` 打勾保存，线上就不会出现（本地 `hugo server -D` 能看到）。

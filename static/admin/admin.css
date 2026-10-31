@@ -1,17 +1,22 @@
 /*
- * Sveltia CMS 界面定制
- * 作用域：/admin/ 全站（登录页、列表页、条目编辑器）
+ * Sveltia CMS 界面定制 —— 新粗野主义（与博客主题 assets/css/extended/neubrutalism.css 同一套语言）
+ * 要素：粗黑描边、硬偏移阴影（无模糊）、0 圆角、明黄强调色、加粗字重。
+ * 作用域：/admin/ 全站（登录页、列表页、条目编辑器）。
  * 原理：覆盖 Sveltia 暴露的 --sui-* 设计令牌，再做少量组件级微调。
- * 主题分支：data-theme 由 CMS 按用户设置写入；未写入时跟随系统 media query。
- * html:root 前缀用于压过 Sveltia 运行时注入的组件样式（特异性优先于加载顺序）。
+ * 注意：类名不是稳定 API，Sveltia 升级后需核对；html:root 前缀用于压过
+ * Sveltia 运行时注入的组件样式（特异性优先于加载顺序）。
  */
 
 /* ============================================================
  * 1. 设计令牌
  * ============================================================ */
 
-/* 中文字体栈：跟随博客本身，不额外加载 webfont */
 html:root {
+  --nb-ink: #111111;
+  --nb-yellow: #ffd02f;
+  --nb-paper: #fffdf5;
+
+  /* 中文字体栈：跟随博客本身，不额外加载 webfont */
   --sui-font-family-default:
     "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei",
@@ -20,66 +25,113 @@ html:root {
   --sui-control-font-family: var(--sui-font-family-default);
   --sui-textbox-font-family: var(--sui-font-family-default);
 
-  /* 控件圆角从 4px 放宽到 8px，观感更柔和 */
-  --sui-textbox-border-radius: 8px;
-  --sui-listbox-border-radius: 8px;
-  --sui-tree-border-radius: 8px;
+  /* 粗野主义：圆角归零 */
+  --sui-textbox-border-radius: 0px;
+  --sui-listbox-border-radius: 0px;
+  --sui-tree-border-radius: 0px;
 }
 
-/* ---- 暖琥珀强调色，替代默认的科技蓝 ---- */
+/* ---- 明黄强调色：亮暗两主题都用黄，深色文字保证对比度 ---- */
 
 html:root[data-theme="dark"],
 html:root:not([data-theme]) {
-  --sui-primary-accent-color: hsl(30 60% 62%);
-  --sui-primary-accent-color-dark: hsl(30 60% 54%);
-  --sui-primary-accent-color-light: hsl(30 70% 70%);
-  --sui-primary-accent-color-text: hsl(30 75% 70%);
-  --sui-primary-accent-color-inverted: hsl(20 40% 12%);
-  --sui-primary-accent-color-translucent: hsl(30 70% 55% / 55%);
-  --sui-primary-accent-color-translucent-light: hsl(30 70% 55% / 40%);
-  --sui-focus-ring-color: hsl(30 70% 55%);
+  --sui-primary-accent-color: hsl(46 100% 60%);
+  --sui-primary-accent-color-dark: hsl(46 100% 52%);
+  --sui-primary-accent-color-light: hsl(46 100% 68%);
+  --sui-primary-accent-color-text: hsl(0 0% 10%);
+  --sui-primary-accent-color-inverted: hsl(0 0% 10%);
+  --sui-primary-accent-color-translucent: hsl(46 100% 55% / 55%);
+  --sui-primary-accent-color-translucent-light: hsl(46 100% 55% / 40%);
+  --sui-focus-ring-color: hsl(0 0% 92%);
 }
 
 html:root[data-theme="light"],
 html:root:not([data-theme]) {
-  --sui-primary-accent-color: hsl(30 85% 52%);
-  --sui-primary-accent-color-dark: hsl(30 80% 44%);
-  --sui-primary-accent-color-light: hsl(30 90% 60%);
-  --sui-primary-accent-color-text: hsl(25 80% 36%);
-  --sui-primary-accent-color-inverted: hsl(20 55% 14%);
-  --sui-primary-accent-color-translucent: hsl(30 85% 50% / 55%);
-  --sui-primary-accent-color-translucent-light: hsl(30 85% 50% / 40%);
-  --sui-focus-ring-color: hsl(25 80% 45%);
+  --sui-primary-accent-color: hsl(46 97% 52%);
+  --sui-primary-accent-color-dark: hsl(46 90% 44%);
+  --sui-primary-accent-color-light: hsl(46 100% 60%);
+  --sui-primary-accent-color-text: hsl(0 0% 10%);
+  --sui-primary-accent-color-inverted: hsl(0 0% 10%);
+  --sui-primary-accent-color-translucent: hsl(46 97% 50% / 55%);
+  --sui-primary-accent-color-translucent-light: hsl(46 97% 50% / 40%);
+  --sui-focus-ring-color: hsl(0 0% 7%);
 }
 
 @media (prefers-color-scheme: dark) {
   html:root:not([data-theme]) {
-    --sui-primary-accent-color: hsl(30 60% 62%);
-    --sui-primary-accent-color-dark: hsl(30 60% 54%);
-    --sui-primary-accent-color-light: hsl(30 70% 70%);
-    --sui-primary-accent-color-text: hsl(30 75% 70%);
-    --sui-primary-accent-color-inverted: hsl(20 40% 12%);
-    --sui-primary-accent-color-translucent: hsl(30 70% 55% / 55%);
-    --sui-primary-accent-color-translucent-light: hsl(30 70% 55% / 40%);
-    --sui-focus-ring-color: hsl(30 70% 55%);
+    --sui-primary-accent-color: hsl(46 100% 60%);
+    --sui-primary-accent-color-dark: hsl(46 100% 52%);
+    --sui-primary-accent-color-light: hsl(46 100% 68%);
+    --sui-primary-accent-color-text: hsl(0 0% 10%);
+    --sui-primary-accent-color-inverted: hsl(0 0% 10%);
+    --sui-primary-accent-color-translucent: hsl(46 100% 55% / 55%);
+    --sui-primary-accent-color-translucent-light: hsl(46 100% 55% / 40%);
+    --sui-focus-ring-color: hsl(0 0% 92%);
   }
 }
 
 @media (prefers-color-scheme: light) {
   html:root:not([data-theme]) {
-    --sui-primary-accent-color: hsl(30 85% 52%);
-    --sui-primary-accent-color-dark: hsl(30 80% 44%);
-    --sui-primary-accent-color-light: hsl(30 90% 60%);
-    --sui-primary-accent-color-text: hsl(25 80% 36%);
-    --sui-primary-accent-color-inverted: hsl(20 55% 14%);
-    --sui-primary-accent-color-translucent: hsl(30 85% 50% / 55%);
-    --sui-primary-accent-color-translucent-light: hsl(30 85% 50% / 40%);
-    --sui-focus-ring-color: hsl(25 80% 45%);
+    --sui-primary-accent-color: hsl(46 97% 52%);
+    --sui-primary-accent-color-dark: hsl(46 90% 44%);
+    --sui-primary-accent-color-light: hsl(46 100% 60%);
+    --sui-primary-accent-color-text: hsl(0 0% 10%);
+    --sui-primary-accent-color-inverted: hsl(0 0% 10%);
+    --sui-primary-accent-color-translucent: hsl(46 97% 50% / 55%);
+    --sui-primary-accent-color-translucent-light: hsl(46 97% 50% / 40%);
+    --sui-focus-ring-color: hsl(0 0% 7%);
   }
 }
 
 /* ============================================================
- * 2. 条目编辑器：专注写作的排版
+ * 2. 登录页
+ * ============================================================ */
+
+/* 站点 logo：黄底黑框卡片 */
+html:root img.logo,
+html:root .inner .logo img,
+html:root .inner .logo svg {
+  border: 2px solid var(--nb-ink);
+  box-shadow: 6px 6px 0 var(--nb-ink);
+  border-radius: 0;
+}
+
+html:root .buttons .button {
+  border: 2px solid var(--nb-ink);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--nb-ink);
+  font-weight: 700;
+  transition: none;
+}
+
+html:root .buttons .button.primary {
+  background: var(--nb-yellow);
+  color: var(--nb-ink);
+}
+
+html:root .buttons .button.primary:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--nb-ink);
+}
+
+html:root .buttons .button.secondary {
+  background: #ffffff;
+  color: var(--nb-ink);
+}
+
+html:root[data-theme="dark"] .buttons .button.secondary,
+html:root:not([data-theme]) .buttons .button.secondary {
+  background: #1f1f1f;
+  color: #f2f2f2;
+}
+
+html:root .buttons .button.secondary:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--nb-ink);
+}
+
+/* ============================================================
+ * 3. 条目编辑器：专注写作的排版
  * ============================================================ */
 
 /* 编辑栏目限定在舒适行长内，不再通栏铺满 */
@@ -130,19 +182,22 @@ html:root .content-editor section.field:first-of-type .sui.text-input input {
   padding: 6px 0;
 }
 
-/* 聚焦时只在标题下沿给出一条细线 */
+/* 聚焦时只在标题下沿给出一条粗黑线 */
 html:root .content-editor section.field:first-of-type .sui.text-input {
-  box-shadow: inset 0 -1px 0 hsl(var(--sui-border-color-2-hsl));
+  box-shadow: inset 0 -2px 0 hsl(var(--sui-border-color-2-hsl));
 }
 
 html:root .content-editor section.field:first-of-type .sui.text-input:focus-within {
-  box-shadow: inset 0 -2px 0 var(--sui-primary-accent-color);
+  box-shadow: inset 0 -3px 0 var(--nb-ink);
 }
 
-/* 摘要等文本域：放宽行距 */
+/* 摘要等文本域：粗野边框 + 放宽行距 */
 html:root .content-editor .sui.text-area textarea {
   line-height: 1.65;
   padding: 14px 16px;
+  border: 2px solid var(--nb-ink);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--nb-ink);
 }
 
 /* Markdown 富文本区：正文观感向博客文章靠拢 */
@@ -159,6 +214,7 @@ html:root .content-editor .lexical-root p {
 html:root .content-editor .lexical-root h1,
 html:root .content-editor .lexical-root h2,
 html:root .content-editor .lexical-root h3 {
+  font-weight: 800;
   line-height: 1.3;
   margin-block: 1.4em 0.5em;
 }
