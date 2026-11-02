@@ -38,7 +38,11 @@ buildExpired = false
     guessSyntax = true
     lineNos = false
     codeFences = true
-  [markup.goldmark.renderer]
+    [markup.tableOfContents]
+    startLevel = 2              # 目录从 h2 开始
+    endLevel = 5                # 收录到 h5（Hugo 默认只到 h3）
+
+[markup.goldmark.renderer]
     unsafe = true              # 允许文章里直接写 HTML
 
 # ============================================================
