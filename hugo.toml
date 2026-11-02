@@ -147,6 +147,12 @@ buildExpired = false
   weight = 30
 
 [[menu.main]]
+  identifier = "categories"
+  name = "分类"
+  url = "/categories/"
+  weight = 35
+
+[[menu.main]]
   identifier = "search"
   name = "搜索"
   url = "/search/"
